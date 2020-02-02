@@ -1,0 +1,246 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/*Senaryo:
+Kullanıcı tarafından belirlenecek n adet öğrencinin kişisel bilgileri (numara, ad, soyad, ders sayısı ve
+dersler), dinamik olarak tahsis edilen (malloc/calloc) bir yapıda saklanacaktır. Öğrenciye ait kişisel
+bilgiler Ogrenci struct’ı ile sağlanacaktır. Öğrenci struct’ındaki dersler değişkeni dinamik olarak
+oluşturulacak bir yapıyı temsil etmekte olup içerisinde ders adı, vize notu ve final notu bilgilerini
+barındıran Ders struct’ının nesnelerini tutacaktır.*/
+
+/*Öğrenci Ara: Bu fonksiyonda kullanıcıdan alınan isme sahip öğrencinin bilgileri (aldığı dersler dahil)
+ekrana yazdırılır.
+Durum Göster: Öğrenci listesindeki her bir öğrencinin derslerinden geçme/kalma durumları hesaplanarak
+ekrana yazdırılır. Geçme durumu hesaplanırken vizenin %40’ı ve finalin %60’ı toplanır ve toplam >= 60
+olan not başarılı sayılır.
+Listele: Listedeki tüm öğrencilerin bilgileri ve öğrencilere ait dersler düzgün bir görüntüde ekrana
+yazdırılır.
+Çıkış: Program sonlandırılır.*/
+
+typedef struct dersler
+{
+    char dersAdi[30];
+    int vizeNot;
+    int finalNot;
+} Ders;
+
+typedef struct Ogrenciler
+{
+    int no;
+    char ad[20];
+    char soyad[20];
+    int dersSayisi;
+
+    Ders *dersler;
+
+} ogrenci;
+
+void ogrenciAra(ogrenci *ptrOgr);
+void durumGoster(ogrenci *ptrOgr);
+void listele(ogrenci *ptrOgr);
+
+int ogrSayi;
+ogrenci *ptrOgr;
+
+int my_strcmp(char C[], char D[]);
+
+int main()
+{
+    int secim1, i,j;
+
+    printf("Kac adet ogrenci gireceksiniz: ");
+    scanf("%d", &ogrSayi);
+
+    ogrenci *ptrOgr;
+    ptrOgr = (ogrenci*)malloc(sizeof(ogrenci)*ogrSayi);
+
+    printf("\n----------------------------------------------\n");
+    printf("Lutfen ogrencilerin bilgilerini giriniz...\n");
+    printf("----------------------------------------------\n\n");
+
+    for(i=0 ; i<ogrSayi ; i++)
+    {
+        printf("%d. ogrencinin numarasini giriniz: ", i+1);
+        scanf("%d", &(ptrOgr+i)->no);
+        printf("%d. ogrencinin adini giriniz: ", i+1);
+        scanf("%s", (ptrOgr+i)->ad);
+        printf("%d. ogrencinin soyadini giriniz: ", i+1);
+        scanf("%s", (ptrOgr+i)->soyad);
+        printf("%d. ogrencinin ders sayisini giriniz: ", i+1);
+        scanf("%d", &(ptrOgr+i)->dersSayisi);
+
+        (ptrOgr+i)->dersler = (ogrenci *)malloc((ptrOgr+i)->dersSayisi*sizeof(Ders));
+
+        for (j=0; j<(ptrOgr+i)->dersSayisi; j++)
+        {
+            printf("%d. ogrencinin %d. dersinin adini giriniz: ",i+1, j+1);
+            scanf("%s", ((ptrOgr+i)->dersler+j)->dersAdi);
+            printf("%d. ogrencinin %d. dersinin vize notunu giriniz: ",i+1, j+1);
+            scanf("%d", &((ptrOgr+i)->dersler+j)->vizeNot);
+            printf("%d. ogrencinin %d. dersinin final notunu giriniz: ",i+1, j+1);
+            scanf("%d", &((ptrOgr+i)->dersler+j)->finalNot);
+        }
+    }
+
+    while (1 == 1)
+    {
+        printf("---------------------------------------------------------------\n");
+        printf("\n ISLEMLER\n");
+        printf("---------------------------------------------------------------\n");
+        printf("Ogrenci aramak icin 1'i seciniz...\n");
+        printf("Ogrencilerin gecme/kalma durumlarini gormek icin 2'yi seciniz...\n");
+        printf("Ogrencileri liste halinde gormek icin 3'u seciniz...\n");
+        printf("Programdan cikmak icin 4'u seciniz...\n");
+
+        printf("Seciminiz: ");
+        scanf("%d", &secim1);
+        printf("---------------------------------------------------------------\n");
+        
+        switch (secim1)
+        {
+        case 1:
+        {
+            ogrenciAra(ptrOgr);
+            break;
+        }
+        case 2:
+        {
+            durumGoster(ptrOgr);
+            break;
+        }
+        case 3:
+        {
+            listele(ptrOgr);
+            break;
+        }
+        case 4:
+            return 0;
+        default:
+        {
+            printf("Yanlis secim yaptiniz!\n");
+            break;
+        }
+
+        }
+
+    }
+
+    free(ptrOgr);
+
+    return 0;
+}
+
+int my_strcmp(char *c, char *d)
+{
+    int i = 0;
+    while (*(c+i) != '\0' && *(d+i) != '\0')
+    {
+        if (*(c+i)==*(d+i))
+        {
+            i++;
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+}
+
+void ogrenciAra(ogrenci *ptrOgr)
+{
+    char isim[20];
+    int i, j, a;
+
+    printf("Aramak istediginiz ogrencinin adini girin: ");
+    scanf("%s", isim);
+    printf("-----------------------------------------------------\n");
+
+    a = 0;
+
+    for(i=0; i<=ogrSayi; i++)
+    {
+        if(my_strcmp(isim, (ptrOgr+i)->ad) == 1)
+        {
+            printf("ADI\t   SOYADI\t  NUMARASI\t  DERS SAYISI\n");
+            printf("%-10s %-15s %-15d %-10d\n\n",(ptrOgr+i)->ad, (ptrOgr+i)->soyad, (ptrOgr+i)->no, (ptrOgr+i)->dersSayisi);
+
+            a = 1;
+
+            for (j=0; j<(ptrOgr+i)->dersSayisi; j++)
+            {
+                printf("DERS ADI\t VIZE NOTU\t FINAL NOTU\n");
+                printf("%-15s  %-15d  %-10d\n", ((ptrOgr+i)->dersler+j)->dersAdi, ((ptrOgr+i)->dersler+j)->vizeNot, ((ptrOgr+i)->dersler+j)->finalNot);
+            }
+            printf("-----------------------------------------------------\n");
+        }
+    }
+
+    if(a != 1)
+    {
+        printf("Aradiginiz isimde bir ogrenci bulunamadi!..\n");
+    }
+}
+
+
+void durumGoster(ogrenci *ptrOgr)
+{
+    int i, j;
+
+    double durum = 0;
+
+    for(i=0; i<ogrSayi; i++)
+    {
+
+        for(j=0; j<(ptrOgr+i)->dersSayisi; j++)
+        {
+
+            printf(" NUMARA\t    AD\t        SOYAD\t   DERS ADI\t  VIZE NOTU\t FINAL NOTU\t  G/K DURUMU\n ");
+            printf("%-10d %-10s  %-10s   %-10s    %-10d    %-10d    ",(ptrOgr+i)->no, (ptrOgr+i)->ad, (ptrOgr+i)->soyad, ((ptrOgr+i)->dersler+j)->dersAdi, ((ptrOgr+i)->dersler+j)->vizeNot, ((ptrOgr+i)->dersler+j)->finalNot);
+
+            durum = (double)((((ptrOgr+i)->dersler+j)->vizeNot)*0.4) + (double)((((ptrOgr+i)->dersler+j)->finalNot)*0.6);
+
+            if(durum >= 60)
+            {
+                printf("  GECTI :)\n");
+            }
+            else
+            {
+                printf("  KALDI :(\n");
+            }
+
+            printf("\n");
+        }
+    }
+}
+
+void listele(ogrenci *ptrOgr)
+{
+    int i, j;
+
+    double durum = 0;
+
+    for (i=0; i<ogrSayi; i++)
+    {
+        printf("NUMARASI\t  ADI\t\t  SOYADI\t  DERS SAYISI\n");
+        printf("%-15d   %-14s  %-14s  %-3d\n", (ptrOgr+i)->no, (ptrOgr+i)->ad, (ptrOgr+i)->soyad, (ptrOgr+i)->dersSayisi);
+
+        for(j=0; j<(ptrOgr+i)->dersSayisi; j++)
+        {
+            printf("DERS ADI\t  VIZE NOTU\t  FINAL NOTU\t  G/K DURUMU\n");
+            printf("%-15s   %-14d  %-11d\t  ", ((ptrOgr+i)->dersler+j)->dersAdi, ((ptrOgr+i)->dersler+j)->vizeNot,((ptrOgr+i)->dersler+j)->finalNot);
+
+            durum = (double)((((ptrOgr+i)->dersler+j)->vizeNot)*0.4) + (double)((((ptrOgr+i)->dersler+j)->finalNot)*0.6);
+
+            if(durum >= 60)
+            {
+                printf("GECTI :)\n");
+            }
+            else
+            {
+                printf("KALDI :(\n");
+            }
+        }
+        printf("--------------------------------------------------------\n\n");
+    }
+}
