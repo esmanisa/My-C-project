@@ -1,0 +1,419 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define boyut 19
+
+void e_harfi(int k);
+void c_harfi(int k);
+void i_harfi(int k);
+void s_harfi (int k);
+void a_harfi (int k);
+void n_harfi (int k);
+void m_harfi (int k);
+void d_harfi (int k);
+
+int main()
+{
+    int k;
+
+    e_harfi(k);
+    printf("\n");
+    s_harfi(k);
+    printf("\n");
+    m_harfi(k);
+    printf("\n");
+    a_harfi(k);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    n_harfi(k);
+    printf("\n");
+    i_harfi(k);
+    printf("\n");
+    s_harfi(k);
+    printf("\n");
+    a_harfi(k);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    c_harfi(k);
+    printf("\n");
+    a_harfi(k);
+    printf("\n");
+    n_harfi(k);
+    printf("\n");
+    d_harfi(k);
+    printf("\n");
+    a_harfi(k);
+    printf("\n");
+    n_harfi(k);
+    printf("\n");
+
+
+    return 0;
+}
+
+void i_harfi(int k)
+{
+    int i,j;
+
+    for(i=1; i<=(boyut/2)-3; i++)
+    {
+        for(j=1; j<=(boyut/2); j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("\n");
+
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut/2; j++)
+            printf("*");
+        printf("\n");
+    }
+}
+void c_harfi(int k)
+{
+    int i,j;
+
+    for(i=1; i<=1; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+
+    for(i=1; i<=boyut-2; i++)
+    {
+        for(j=1; j<=1; j++)
+        {
+            printf("*");
+            printf("\n");
+        }
+    }
+    for(i=1; i<=1; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+void e_harfi(int k)
+{
+    int i,j;
+    int bosluk = 0;
+    int yildiz_say = boyut;
+
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+
+        for (i=1; i<=boyut/2-1; i++)
+        {
+            printf("*");
+            printf("\n");
+            bosluk = boyut-1;
+        }
+        break;
+    }
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+
+        for (i=1; i<=boyut/2-1; i++)
+        {
+            printf("*");
+            printf("\n");
+            bosluk = boyut-1;
+        }
+        break;
+    }
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        break;
+    }
+}
+void s_harfi(int k)
+{
+    int i,j;
+    int bosluk;
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+
+        for (i=1; i<=boyut/2-1; i++)
+        {
+            printf("*");
+            printf("\n");
+            bosluk = boyut-1;
+        }
+        break;
+    }
+    for(i=1; i<=boyut+2; i++)
+    {
+        for(j=1; j<=boyut; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+
+        for(i=1; i<=boyut/2-1; i++)
+        {
+            for(j=1; j<=boyut-1; j++)
+                printf(" ");
+            printf("*");
+            printf("\n");
+        }
+        for(i=1; i<=boyut; i++)
+        {
+            printf("*");
+        }
+
+        break;
+    }
+}
+
+void a_harfi(int k)
+{
+    int i, j;
+
+    for(i=1; i<=boyut/2+1; i++)
+    {
+        for(j=i; j<boyut/2+1; j++)
+        {
+            printf(" ");
+        }
+        for(j=1; j<=(2*i-1); j++)
+        {
+            if(i==boyut || j==1 || j==(2*i-1))  //son satir icin, ilk sutun icin ve son sutun icin yildiz yazdir...
+            {
+                printf("*");
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+    for(i=1; i=1; i)
+    {
+        for(j=1; j<=boyut+1; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+        break;
+    }
+
+    for(i=1; i<=(boyut/2); i++)
+    {
+        printf("*");
+
+        for(j=1; j<=boyut-1; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        printf("\n");
+    }
+}
+void n_harfi(int k)
+{
+    int i,j;
+    int bosluk1=1;
+    int bosluk2=boyut-4;
+
+    for(i=1; i<=1; i++)
+    {
+        printf("*");
+        for(j=1; j<=boyut-2; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+    }
+    printf("\n");
+    for(i=1; i<=1; i++)
+    {
+        printf("**");
+        for(j=1; j<=boyut-3; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+    }
+    printf("\n");
+    for(i=boyut/2-1; i>=1; i--)
+    {
+        printf("*");
+        for(j=1; j<=bosluk1; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        for(j=bosluk2; j>=1; j--)
+        {
+            printf(" ");
+        }
+        printf("*");
+        bosluk1+=2;
+        bosluk2-=2;
+        printf("\n");
+    }
+    for(i=1; i<=boyut/3; i++)
+    {
+        printf("*");
+        for(j=1; j<=boyut-2; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        printf("\n");
+    }
+}
+void m_harfi(int k)
+{
+    int i, j;
+    int bosluk1=1;
+    int bosluk2=boyut-6;
+    int bosluk3=1;
+
+    for(i=1; i<=1; i++)
+    {
+        printf("*");
+        for(j=1; j<=boyut-2; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+    }
+    printf("\n");
+
+    for(i=1; i<=1; i++)
+    {
+        printf("**");
+        for(j=1; j<=boyut-4; j++)
+        {
+            printf(" ");
+        }
+        printf("**");
+    }
+    printf("\n");
+
+    for(i=1; i<=(boyut/2)-2; i++)
+    {
+        printf("*");
+        for(j=1; j<=bosluk1; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        for(j=bosluk2; j>=1; j--)
+        {
+            printf(" ");
+        }
+        printf("*");
+        for(j=1; j<=bosluk3; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        bosluk1++;
+        bosluk2-=2;
+        bosluk3++;
+        printf("\n");
+    }
+    for(i=1; i<=boyut/2; i++)
+    {
+        printf("*");
+        for(j=1; j<=boyut-2; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        printf("\n");
+    }
+
+}
+void d_harfi(int k)
+{
+    int i,j;
+    int bosluk1=boyut/2;
+    int bosluk2=boyut/2;
+
+    for(i=1; i<=1; i++)
+    {
+        for(j=1; j<=(boyut/2)+1; j++)
+        {
+            printf("*");
+        }
+    }
+    printf("\n");
+
+    for(i=1; i<=(boyut/2)+1; i++)
+    {
+        printf("*");
+        for(j=1; j<=bosluk1; j++)
+        {
+            printf(" ");
+        }
+        printf("*");
+        for(j=bosluk2; j>=1; j--)
+        {
+            printf(" ");
+        }
+
+        printf("\n");
+        bosluk1++;
+        bosluk2--;
+    }
+
+    for(i=1; i<=(boyut/2)+1; i++)
+    {
+        printf("*");
+        for(j=bosluk1; j>=1; j--)
+        {
+            printf(" ");
+        }
+        printf("*");
+        for(j=1; j<=bosluk2; j++)
+        {
+            printf(" ");
+        }
+
+        printf("\n");
+        bosluk1--;
+        bosluk2++;
+    }
+    for(i=1; i<=1; i++)
+    {
+        for(j=1; j<=(boyut/2)+2; j++)
+        {
+            printf("*");
+        }
+    }
+
+}
