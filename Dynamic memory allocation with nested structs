@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/*Bir spor salonu abonelere ait bilgileri bir yapida saklamak istemektedirler.
+kullaniciya ait abone no, ad, toplam aidat ve kurslar bulunmakta. Kurslar alt basliginda ise
+kurs tipi (1:pilater, 2:fitness, 3:yoga), aidat ve sure bulunmakta.*/
+
+typedef struct kurs
+{
+    int kTipi;
+    int aidat;
+    int sure;
+}KT;
+
+typedef struct abone
+{
+    int aNo;
+    char ad[25];
+    int tAidat;
+    int kSayisi;
+    KT *kurslar;
+}AB,A;
+
+AB *bilgi_al(int aSayisi);                        //Kullanicinin bilgilerini almak icin bir parametreli fonksiyon.
+void aidat_hesapla(AB *aboneler, int aSayisi);    //Kullanicilarin toplam aidatini hesaplamak icin (sure*aidat) iki parametreli fonksiyon.
+
+int main()
+{
+    int aSayisi;
+    AB *aboneler;
+    printf("Abone sayisi:");
+    scanf("%d", &aSayisi);
+
+    aboneler = bilgi_al(aSayisi);
+
+    aidat_hesapla(aboneler, aSayisi);
+
+    return 0;
+}
+
+AB *bilgi_al(int aSayisi)
+{
+    int kSayisi, i,j;
+    AB *aboneler = (AB*)malloc(aSayisi*sizeof(AB));
+
+    for(i=0; i<aSayisi; i++)
+    {
+        printf("%d. abonenin abone no:", i+1);
+        scanf("%d", &(aboneler+i)->aNo);
+        printf("%d. abonenin adi:", i+1);
+        scanf("%s", (aboneler+i)->ad);
+        printf("%d. abonenin kurs sayisi:", i+1);
+        scanf("%d", &kSayisi);
+        (aboneler+i)->kSayisi = kSayisi;
+
+        (aboneler+i)->kurslar = (KT*)malloc(kSayisi*sizeof(KT));
+
+        for(j=0; j<kSayisi; j++)
+        {
+            printf("%d. abonenin %d. kursunun tipi:",i+1,j+1);
+            scanf("%d", &((aboneler+i)->kurslar+j)->kTipi);
+            printf("%d. abonenin %d. kursunun aidati:", i+1, j+1);
+            scanf("%d", &((aboneler+i)->kurslar+j)->aidat);
+            printf("%d. abonenin %d. kursunun suresi: ", i+1, j+1);
+            scanf("%d", &((aboneler+i)->kurslar+j)->sure);
+        }
+    }
+
+    return aboneler;
+}
+
+void aidat_hesapla(AB *aboneler, int aSayisi)
+{
+    int i, j, kSayisi, tBorc;
+
+    for (i=0; i<aSayisi; i++)
+    {
+        kSayisi = (aboneler+i)->kSayisi;
+        tBorc = 0;
+
+        for(j=0; j<kSayisi; j++)
+        {
+            tBorc += ((aboneler+i)->kurslar+j)->aidat * ((aboneler+i)->kurslar+j)->sure;
+        }
+        (aboneler+i)->tAidat = tBorc;
+
+        printf("%d. abonenin toplam aidat borcu : %d\n", i+1, (aboneler+1)->tAidat);
+    }
+}
